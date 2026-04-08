@@ -1,5 +1,9 @@
 # Azure DevOps Pipeline definition
 steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/StringLibrary/*.csproj'
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: 
