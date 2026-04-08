@@ -15,7 +15,7 @@ stages:
         projects: '**/StringLibrary/*.csproj'
 - stage: Deploy
   jobs:
-  - job: Pack
+  - job: PackPush
     steps:
     - task: DotNetCoreCLI@2
       inputs:
@@ -23,8 +23,6 @@ stages:
         packagesToPack: '**/StringLibrary/*.csproj'
         buildProperties: 'PackageId=Patrick_COMP367_Lab4_StringLibrary'
         versioningScheme: 'off'
-  - job: Push
-    steps:
     - task: DotNetCoreCLI@2
       inputs:
         command: 'push'
