@@ -1,20 +1,33 @@
 # Azure DevOps Pipeline definition
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: '**/StringLibrary/*.csproj'
-- task: NuGetToolInstaller@1
-  inputs:
-    versionSpec: 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/StringLibrary/*.csproj'
-    versioningScheme: 'off'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '38c78008-2919-4d51-8286-54415c7d7b78'
+pool: 
+  name: Default
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+    - task: NuGetToolInstaller@1
+      inputs:
+        versionSpec: 
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '**/StringLibrary/*.csproj'
+- stage: Deploy
+  jobs:
+  - job: Pack
+    steps:
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'pack'
+        packagesToPack: '**/StringLibrary/*.csproj'
+        buildProperties: 'PackageId=Patrick_COMP367_Lab4_StringLibrary'
+        versioningScheme: 'off'
+  - job: Push
+    steps:
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '38c78008-2919-4d51-8286-54415c7d7b78'
