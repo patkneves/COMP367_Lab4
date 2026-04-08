@@ -12,9 +12,9 @@ steps:
     command: 'pack'
     packagesToPack: '**/StringLibrary/*.csproj'
     versioningScheme: 'off'
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '38c78008-2919-4d51-8286-54415c7d7b78'
