@@ -1,5 +1,8 @@
 # Azure DevOps Pipeline definition
 steps:
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
