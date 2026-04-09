@@ -27,4 +27,4 @@ stages:
       inputs:
         command: custom
         custom: nuget
-        arguments: 'push $(Build.ArtifactStagingDirectory)/**/*.nupkg --source 38c78008-2919-4d51-8286-54415c7d7b78 --api-key az --skip-duplicate'
+        arguments: 'push $(Build.ArtifactStagingDirectory)/**/*.nupkg --source https://pkgs.dev.azure.com/pneves7777/_packaging/pneves7777/nuget/v3/index.json --api-key az --skip-duplicate'
