@@ -23,8 +23,10 @@ stages:
         packagesToPack: '**/StringLibrary/*.csproj'
         buildProperties: 'PackageId=Patrick_COMP367_Lab4_StringLibrary'
         versioningScheme: 'off'
-    - task: DotNetCoreCLI@2
+    - task: NuGetCommand@2
       inputs:
-        command: custom
-        custom: nuget
-        arguments: 'push $(Build.ArtifactStagingDirectory)/**/*.nupkg --source https://pkgs.dev.azure.com/pneves7777/_packaging/pneves7777/nuget/v3/index.json --api-key az --skip-duplicate'
+        command: 'push'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '38c78008-2919-4d51-8286-54415c7d7b78'
+        allowPackageConflicts: true
